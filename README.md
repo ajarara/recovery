@@ -1,5 +1,6 @@
 # a repo for recovery
-a convenient place to put bare minimum configuration + encrypted creds so that backup recovery can be done with as little research as possible
+a convenient place to put bare minimum configuration + encrypted backup creds so that backup recovery can be done with as little research as possible.
+
 
 ### yubikey-restic.scm
 contains yubikey configuration: namely pcscd, yubikey udev rules
@@ -10,7 +11,8 @@ place in .config/guix/channels.scm
 (just for nonguix, easily found online I'm just making this a one stop shop for recovery)
 
 ### pub
-public half of gpg keys. It would be great to not have to upload this but public keys are designed to be uploaded so I'm not too worried
+public half of gpg keys.
+
 
 to create it:
 ```
