@@ -38,6 +38,9 @@ phrase is name of repo
 ### backup
 contains restic information, encrypted to the public keys above
 
+### nonguix-signing-key.pub
+`sudo guix archive --authorize < nonguix-signing-key.pub`
+
 ## additional notes
 to get block ids: sudo blkid
 
