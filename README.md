@@ -19,11 +19,12 @@ Once the self repository is accessed, things become much easier: restoring from 
 #### qemu flags for MacOS
 swap out vendor id for your vendor (1050 is yubico), probably omitting it altogether works too.
 
-ssh host forwarding is useful in case you want to build a completely new qemu image: you can use the stock qemu image to build a new one, then scp it out to the host to restart the 
+ssh host forwarding is useful in case you want to build a completely new qemu image: you can use the stock qemu image to build a new one, then scp it out to the host and restart qemu  with that (instead of reconfiguring into the config)
 ```
 qemu-system-x86_64 --accel hvf -cpu host \
                        -device qemu-xhci \
                        -usb -device usb-host,vendorid=0x1050 \
                        -net user,hostfwd=tcp::10022-:22 -net nic \
+                       -vga virtio -device virtio-mouse -device virtio-keyboard
                        -m $MEMORY $QCOW_IMAGE
 ```
