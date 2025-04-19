@@ -59,7 +59,7 @@
   (bootloader
    (bootloader-configuration
     (bootloader grub-bootloader)
-    (targets "/dev/sda")
+    (targets '("/dev/sda"))
     (terminal-outputs '(console))))
   (file-systems
    (cons*
