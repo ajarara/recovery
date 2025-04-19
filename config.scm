@@ -54,13 +54,7 @@
       "gnupg"
       "emacs"
       "openssh"
-      "alacritty"
-      "parted"
-      "i3-wm"
-      "i3status"
-      ;; dmenu isn't strictly necessary (nor is i3 lol)
-      ;; but i3 and dmenu pair together well
-      "dmenu"))
+      "parted"))
     %base-packages))
   (bootloader
    (bootloader-configuration
