@@ -59,18 +59,14 @@
   (bootloader
    (bootloader-configuration
     (bootloader grub-bootloader)
-    (targets '("/dev/sda"))
+    (targets '("/dev/vda"))
     (terminal-outputs '(console))))
   (file-systems
    (cons*
     (file-system
       (mount-point "/")
-      (device "/dev/sda2")
-      (type "ext4"))
-    (file-system
-      (mount-point "/gnu/store")
-      (device "/dev/sda2")
-      (type "ext4"))
+      (device "/dev/vda1")
+      (type "ext4")))
     %base-file-systems))
   (users
    (cons*
