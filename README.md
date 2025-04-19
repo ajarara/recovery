@@ -15,16 +15,26 @@ Once the self repository is accessed, things become much easier: restoring from 
 ### useful links
 - [github.com/ajarara/.emacs.d]()
 
-### useful snippets
-#### qemu flags for MacOS
+
+### qemu flags for MacOS
 swap out vendor id for your vendor (1050 is yubico), probably omitting it altogether works too.
 
-ssh host forwarding is useful in case you want to build a completely new qemu image: you can use the stock qemu image to build a new one, then scp it out to the host and restart qemu  with that (instead of reconfiguring into the config)
+rather than do ssh forwarding, we forward an arbitrary port: the only reason we want access is to download qcow files, we don't need to send anything (as far as I know)
 ```
 qemu-system-x86_64 --accel hvf -cpu host \
                        -device qemu-xhci \
                        -usb -device usb-host,vendorid=0x1050 \
-                       -net user,hostfwd=tcp::10022-:22 -net nic \
+                       -net user,hostfwd=tcp::4008-:4008 -net nic \
                        -vga virtio -device virtio-mouse -device virtio-keyboard
+                       -m $MEMORY $QCOW_IMAGE
+```
+
+### qemu flags for linux
+the only difference is kvm acceleration instead of hvf
+```
+qemu-system-x86_64 --enable-kvm -cpu host \
+                       -device qemu-xhci \
+                       -usb -device usb-host,vendorid=0x1050 \
+                       -net user,hostfwd=tcp::4008-:4008 -net nic \
                        -m $MEMORY $QCOW_IMAGE
 ```
