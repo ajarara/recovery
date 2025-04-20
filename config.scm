@@ -52,6 +52,8 @@
    (append
     (specifications->packages
      (list
+       ;; remove after the guix qemu image updates to 1.5.0, where these are defaulted into %base-packages
+      "nss-certs"
       "git"
       "gnupg"
       "emacs"
