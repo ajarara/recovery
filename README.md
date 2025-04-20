@@ -29,26 +29,39 @@ The self repository is where I have all guix configs, sops credentials. This is 
 - [github.com/ajarara/.emacs.d]()
 
 ### qemu flags for MacOS
-swap out vendor id for your vendor (1050 is yubico), probably omitting it altogether works too.
+These config options should be good for any image, however they were tested to maximize time to build for qemu images.
 
-We have to use sudo here for USB passthrough (otherwise, you'll see the key but won't actually be able to interact with it).
+Now for some reason building in the recovery image is _really_ slow, though these flags improve things. I'm not sure why, and it's probably not worth investing time in fixing it since it'll make things more complicated (for example, relying on virt-manager to generate a better config means a lengthy host install process and a flaky gui whereas this uses qemu raw).
 
-We add ssh forwarding, and port 8000 is if we want to build + download something from the image (though we can use rsync with an ssh server, this is simpler)
+Once you're in a 'real' qemu host things improve much more.
+
+An explanation of the config:
+- We sudo here for USB passthrough (otherwise, you'll see the key but won't actually be able to interact with it).
+- qemu-xhci is not the default afaict, it gets usb forwarding working
+- forward ssh, forward the port that the python http.server uses (for simplicity)
+- use virtio for vga -- this makes things feel native, and has the UI respond to resizes
+- hvf acceleration, machine type q35 (cargo culted the q35, hvf is obviouss)
+- use virtio for the mouse, keyboard. the trackpad feels excellent with this.
+- use virtio for the file system
+
 ```
-sudo qemu-system-x86_64 --accel hvf -cpu host \
+sudo qemu-system-x86_64 -cpu max -smp 6 \
                        -device qemu-xhci \
                        -usb -device usb-host,vendorid=0x1050 \
-                       -net user,hostfwd=tcp::8000-:8000,hostfwd=tcp::10022-:22 -net nic \
-                       -vga virtio -device virtio-mouse -device virtio-keyboard
-                       -m $MEMORY $QCOW_IMAGE
+                       -net user,hostfwd=tcp::10022-:22,hostfwd=tcp::8000-:8000 -net nic \
+                       -vga virtio \
+                       -machine type=q35,accel=hvf \
+                       -vga virtio -device virtio-mouse -device virtio-keyboard \
+                       -m $MEMORY -drive file=$QCOW_IMAGE,if=virtio
 ```
 
 ### qemu flags for linux
-kvm acceleration instead of hvf. We might need sudo, depending on the host OS.
+kvm acceleration instead of hvf. We might need sudo, depending on the host OS (guix needs it).
 ```
-qemu-system-x86_64 --enable-kvm -cpu host \
+qemu-system-x86_64 --enable-kvm \
                        -device qemu-xhci \
                        -usb -device usb-host,vendorid=0x1050 \
                        -net user,hostfwd=tcp::8000-:8000,hostfwd=tcp::10022-:22 -net nic \
+                       -vga virtio -device virtio-mouse -device virtio-keyboard \
                        -m $MEMORY $QCOW_IMAGE
 ```
