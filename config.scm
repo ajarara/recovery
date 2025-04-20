@@ -4,8 +4,8 @@
  (gnu bootloader grub)
  (gnu packages)
  (gnu services base)
- (gnu services desktop)
  (gnu services ssh)
+ (gnu services networking)
  (gnu services security-token)
  (gnu system)
  (gnu system file-systems)
@@ -35,6 +35,8 @@
     (service openssh-service-type
              (openssh-configuration
               (allow-empty-passwords? #t)))
+    (service network-manager-service-type)
+    (service wpa-supplicant-service-type)
     (modify-services %base-services
       (guix-service-type
        config =>
