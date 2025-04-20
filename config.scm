@@ -35,7 +35,7 @@
     (service openssh-service-type
              (openssh-configuration
               (allow-empty-passwords? #t)))
-    (modify-services %desktop-services
+    (modify-services %base-services
       (guix-service-type
        config =>
        (guix-configuration
