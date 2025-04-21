@@ -6,7 +6,7 @@ set -o pipefail
 set -eu
 
 function build () {
-    guix system image -t qcow2 --save-provenance --image-size=2G config.scm
+    guix system image -t qcow2 --save-provenance --image-size=20G config.scm
 }
 
 function offer () {
@@ -32,6 +32,6 @@ function test () {
 }
 
 case "$1" in
-    "offer" | "test") $@;;
+    "build" | "offer" | "test") $@;;
     *) echo "Unknown subcommand $1"; exit 1;;
 esac
