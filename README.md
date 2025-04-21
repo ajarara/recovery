@@ -50,7 +50,7 @@ sudo qemu-system-x86_64 -cpu max -smp 6 \
                        -usb -device usb-host,vendorid=0x1050 \
                        -net user,hostfwd=tcp::10022-:22,hostfwd=tcp::8000-:8000 -net nic \
                        -vga virtio \
-                       -machine type=q35,accel=hvf \
+                       -accel hvf \
                        -vga virtio -device virtio-mouse -device virtio-keyboard \
                        -m $MEMORY -drive file=$QCOW_IMAGE,if=virtio
 ```
@@ -65,3 +65,7 @@ qemu-system-x86_64 --enable-kvm \
                        -vga virtio -device virtio-mouse -device virtio-keyboard \
                        -m $MEMORY $QCOW_IMAGE
 ```
+
+
+### TODO
+Why does generation of the recovery image with a vda layout result in an _sda_ layout? Is this a given? It seems to work on linux.
