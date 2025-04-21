@@ -7,11 +7,12 @@ There are two possible restore flows: either we are using qemu or running guix s
 
 ## restoring through qemu
 - download the guix qemu image: https://guix.gnu.org/download/
-- git clone this repository
-- `rsync "$(guix system image -t qcow2 --save-provenance config.scm) ~/`
-- stand up a python server (e.g. `python3 -m http.server`) (or use nc) and download the built image onto the host
-- switch into the built image
-- clone the self repository
+- launch it with the flags in the below sections
+- `guix shell git -- git clone https://github.com/ajarara/recovery`
+- `./just offer` builds the image and serves it over http
+- pull the built image out into the host with curl or wget or whatever
+- switch into the built image (don't reconfigure, actually kill the VM and boot from the host)
+- use the yubikey capable image to clone the self repository and here you can switch into that qemu config directly
 
 ## restoring on a bare install
 - download the install disk: https://guix.gnu.org/download/
@@ -38,11 +39,11 @@ Once you're in a 'real' qemu host things improve much more.
 An explanation of the config:
 - We sudo here for USB passthrough (otherwise, you'll see the key but won't actually be able to interact with it).
 - qemu-xhci is not the default afaict, it gets usb forwarding working
-- forward ssh, forward the port that the python http.server uses (for simplicity)
+- forward ssh, forward the port that the python http.server uses (for simplicity, it can be changed, but one less thing to remember)
 - use virtio for vga -- this makes things feel native, and has the UI respond to resizes
-- hvf acceleration, machine type q35 (cargo culted the q35, hvf is obviouss)
-- use virtio for the mouse, keyboard. the trackpad feels excellent with this.
-- use virtio for the file system
+- hvf/kvm acceleration
+- use virtio for the mouse, keyboard. the trackpad feels native with this.
+- use virtio for the file system (for speed)
 
 ```
 sudo qemu-system-x86_64 -cpu max -smp 6 \
