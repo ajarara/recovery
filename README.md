@@ -44,6 +44,7 @@ An explanation of the config:
 - hvf/kvm acceleration
 - use virtio for the mouse, keyboard. the trackpad feels native with this.
 - use virtio for the file system (for speed)
+- optionally, use `-nographic` or `-display none`
 
 ```
 sudo qemu-system-x86_64 -cpu max -smp 6 \

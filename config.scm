@@ -69,7 +69,7 @@
    (cons*
     (file-system
       (mount-point "/")
-      (device "/dev/vda1")
+      (device "/dev/vda2")
       (type "ext4"))
     %base-file-systems))
   (users
