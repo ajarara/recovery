@@ -9,17 +9,8 @@
  (gnu services security-token)
  (gnu system)
  (gnu system file-systems)
- (gnu system keyboard)
- (guix gexp))
+ (gnu system keyboard))
 
-(define %nonguix-signing-key
-  (plain-file "nonguix-signing-key.pub"
-"(public-key 
- (ecc 
-  (curve Ed25519)
-  (q #C1FD53E5D4CE971933EC50C9F307AE2171A2D3B52C804642A7A35F84F3A4EA98#)
-  )
- )"))
 
 (operating-system
   (host-name "recovery")
@@ -52,7 +43,7 @@
    (append
     (specifications->packages
      (list
-       ;; remove after the guix qemu image updates to 1.5.0, where these are defaulted into %base-packages
+      ;; remove after the guix qemu image updates to 1.5.0, where these are defaulted into %base-packages
       "nss-certs"
       "git"
       "gnupg"

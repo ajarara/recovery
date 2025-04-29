@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 echo "Adding nonguix, science, sops as channels"
 tee ~/.config/guix/channels.scm <<EOF

@@ -12,7 +12,11 @@ There are two possible restore flows: either we are using qemu or running guix s
 - `./just offer` builds the image and serves it over http
 - pull the built image out into the host with curl or wget or whatever
 - switch into the built image (don't reconfigure, actually kill the VM and boot from the host)
-- use the yubikey capable image to clone the self repository and here you can switch into that qemu config directly
+- use the yubikey capable VM.
+
+You now have authenticated access! You can clone private github repos, decrypt things, whatever.
+
+
 
 ## restoring on a bare install
 - download the install disk: https://guix.gnu.org/download/
