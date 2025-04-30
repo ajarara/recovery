@@ -16,8 +16,6 @@ There are two possible restore flows: either we are using qemu or running guix s
 
 You now have authenticated access! You can clone private github repos, decrypt things, whatever.
 
-
-
 ## restoring on a bare install
 - download the install disk: https://guix.gnu.org/download/
 - go through the installer
@@ -64,7 +62,7 @@ sudo qemu-system-x86_64 -cpu max -smp 6 \
 ### qemu flags for linux
 kvm acceleration instead of hvf. We might need sudo, depending on the host OS (guix needs it).
 ```
-qemu-system-x86_64 --enable-kvm \
+sudo qemu-system-x86_64 --enable-kvm \
                        -device qemu-xhci \
                        -usb -device usb-host,vendorid=0x1050 \
                        -net user,hostfwd=tcp::8000-:8000,hostfwd=tcp::10022-:22 -net nic \
@@ -74,4 +72,4 @@ qemu-system-x86_64 --enable-kvm \
 
 
 ### TODO
-Why does generation of the recovery image with a vda layout result in an _sda_ layout? Is this a given? It seems to work on linux.
+- Why does generation of the recovery image with a vda layout result in an _sda_ layout? Is this a given? It seems to work on linux fine.

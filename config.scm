@@ -34,10 +34,7 @@
        (guix-configuration
         (inherit config)
         (substitute-urls
-         (cons* "https://substitutes.nonguix.org" %default-substitute-urls))
-        (authorized-keys
-         (cons* %nonguix-signing-key
-                %default-authorized-guix-keys))))
+         (cons* "https://substitutes.nonguix.org" %default-substitute-urls))))
       )))
   (packages
    (append
